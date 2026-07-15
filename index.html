@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Pribadi - Ruli Lesmana, S.T., Gr.</title>
+    <!-- Import Font Modern -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Variabel Warna & Desain */
+        :root {
+            --primary: #0f172a;       /* Slate 900 */
+            --primary-light: #1e293b; /* Slate 800 */
+            --accent: #0d9488;        /* Teal 600 */
+            --accent-hover: #0f766e;  /* Teal 700 */
+            --bg-body: #f8fafc;       /* Slate 50 */
+            --bg-card: #ffffff;
+            --text-main: #334155;     /* Slate 700 */
+            --text-muted: #64748b;    /* Slate 500 */
+            --border-color: #e2e8f0;  /* Slate 200 */
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -1px rgba(0,0,0,0.04);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --radius: 16px;
+        }
+
+        /* Reset Dasar */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* Penyesuaian Scroll Anchor agar tidak tertutup Sticky Header */
+        section, div[id] {
+            scroll-margin-top: 90px;
+        }
+
+        /* Animasi Masuk */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header / Navigasi Glassmorphism */
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            padding: 15px 0;
+        }
+        .nav-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        .nav-logo {
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 1.2rem;
+            letter-spacing: -0.5px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Container Utama */
+        .main-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        /* Hero Card (Profil Utama) */
+        .hero-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .avatar-container {
+            flex-shrink: 0;
+        }
+        .avatar-img {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+        .hero-info h1 {
+            font-size: 2.2rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+        .hero-badge {
+            display: inline-block;
+            background: #ccfbf1;
+            color: #0f766e;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+        }
+        .hero-text {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            max-width: 700px;
+        }
+
+        /* Layout 2 Kolom untuk Konten Detail */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1.8fr 1.2fr;
+            gap: 30px;
+        }
+
+        /* Card Standar */
+        .section-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-sm);
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 30px;
+            animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        }
+        .section-card h2 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--bg-body);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Timeline Pengalaman & Pendidikan */
+        .timeline {
+            position: relative;
+            padding-left: 20px;
+            border-left: 2px solid var(--border-color);
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 25px;
+        }
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -27px;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 2px solid var(--bg-card);
+        }
+        .timeline-date {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .timeline-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .timeline-org {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Daftar Keahlian (Skills) */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .skill-badge {
+            background: var(--bg-body);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+        .skill-badge:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Kontak List */
+        .contact-list {
+            list-style: none;
+        }
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .contact-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        .contact-icon {
+            font-size: 1.3rem;
+            color: var(--accent);
+            background: #f0fdfa;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .contact-info p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+        .contact-info a {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        .contact-info a:hover {
+            color: var(--accent);
+        }
+
+        /* Tombol Aksi */
+        .btn-contact {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: background 0.3s ease, transform 0.1s ease;
+        }
+        .btn-contact:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            color: #94a3b8;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9rem;
+            margin-top: 60px;
+        }
+
+        /* Responsif (Layar Sedang & Kecil) */
+        @media (max-width: 900px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 600px) {
+            .hero-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px 20px;
+            }
+            .nav-container {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .nav-links {
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header / Navigasi Atas -->
+    <header>
+        <div class="nav-container">
+            <a href="#tentang" class="nav-logo">Ruli Lesmana</a>
+            <nav class="nav-links">
+                <a href="#tentang">Tentang</a>
+                <a href="#riwayat">Riwayat</a>
+                <a href="#keahlian">Keahlian</a>
+                <a href="#kontak">Kontak</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Konten Utama -->
+    <div class="main-container">
+
+        <!-- Kartu Profil Utama (Hero Card) -->
+        <section id="tentang" class="hero-card">
+            <div class="avatar-container">
+                <img class="avatar-img" src="https://lh3.googleusercontent.com/d/1h3iI_cEQ6ZcX6Oe03lVGTEGnRan_dEbG" alt="Foto Ruli Lesmana">
+            </div>
+            <div class="hero-info">
+                <span class="hero-badge">Profil Profesional</span>
+                <h1>Ruli Lesmana, S.T., Gr.[cite: 1]</h1>
+                <p class="hero-text">
+                    Seorang lulusan S1 Teknik Informatika yang mendedikasikan diri sebagai pendidik informatika, pengelola program belajar mandiri, serta aktif menggerakkan literasi masyarakat[cite: 1]. Memiliki pengalaman lebih dari satu dekade dalam dunia pendidikan formal dan nonformal[cite: 1].
+                </p>
+            </div>
+        </section>
+
+        <!-- Grid Layout Dua Kolom -->
+        <div class="content-grid">
+            
+            <!-- KOLOM KIRI (Riwayat & Pendidikan) -->
+            <div class="left-column">
+                
+                <!-- Riwayat Pekerjaan -->
+                <div id="riwayat" class="section-card">
+                    <h2>💼 Riwayat Pekerjaan</h2>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-date">2020 – Sekarang</div>
+                            <div class="timeline-title">Pendidik / Pengajar[cite: 1]</div>
+                            <div class="timeline-org">SMK Negeri Bojonggambir[cite: 1]</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">2019 – Sekarang</div>
+                            <div class="timeline-title">Pengelola & Tutor PKBM[cite: 1]</div>
+                            <div class="timeline-org">PKBM Celah Cahaya[cite: 1]</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-date">2016 – 2017</div>
+                            <div class="timeline-title">Administrator Website[cite: 1]</div>
+                            <div class="timeline-org">Gerakan Literasi & Kesetaraan[cite: 1]</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Riwayat Pendidikan -->
+                <div class="section-card">
+                    <h2>🎓 Riwayat Pendidikan</h2>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-title">S1 Teknik Informatika[cite: 1]</div>
+                            <div class="timeline-org">Sarjana Komputer</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-title">Pendidikan Profesi Guru (PPG)</div>
+                            <div class="timeline-org">Gelar Gr. (Guru Profesional)</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- KOLOM KANAN (Keahlian & Kontak) -->
+            <div class="right-column">
+                
+                <!-- Keahlian -->
+                <div id="keahlian" class="section-card">
+                    <h2>⚡ Bidang Keahlian</h2>
+                    <div class="skills-container">
+                        <span class="skill-badge">Teknik Informatika</span>
+                        <span class="skill-badge">Manajemen Pembelajaran</span>
+                        <span class="skill-badge">Pengembangan Kurikulum</span>
+                        <span class="skill-badge">Google AppScript</span>
+                        <span class="skill-badge">Pendidikan Masyarakat</span>
+                        <span class="skill-badge">Literasi Digital</span>
+                    </div>
+                </div>
+
+                <!-- Kontak -->
+                <div id="kontak" class="section-card">
+                    <h2>📞 Kontak & Hubungan</h2>
+                    <ul class="contact-list">
+                        <li class="contact-item">
+                            <div class="contact-icon">📱</div>
+                            <div class="contact-info">
+                                <p>Nomor Telepon</p>
+                                <a href="tel:081223546686">081223546686[cite: 1]</a>
+                            </div>
+                        </li>
+                        <li class="contact-item">
+                            <div class="contact-icon">✉️</div>
+                            <div class="contact-info">
+                                <p>Email Resmi</p>
+                                <a href="mailto:roeli.eunih.sjy@gmail.com">roeli.eunih.sjy@gmail.com[cite: 1]</a>
+                            </div>
+                        </li>
+                        <li class="contact-item">
+                            <div class="contact-icon">🌐</div>
+                            <div class="contact-info">
+                                <p>Website</p>
+                                <a href="https://www.kangruli.web.id" target="_blank">www.kangruli.web.id[cite: 1]</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <a href="mailto:roeli.eunih.sjy@gmail.com" class="btn-contact">Kirim Email Sekarang</a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Ruli Lesmana, S.T., Gr. Seluruh Hak Cipta Dilindungi.</p>
+    </footer>
+</body>
+</html>
